@@ -19,7 +19,7 @@
 
     <servlet-mapping>
         <servlet-name>Resteasy</servlet-name>
-        <url-pattern>/restful-services/*</url-pattern>
+        <url-pattern>/rest-request/*</url-pattern>
     </servlet-mapping>
     
     <context-param>
@@ -27,10 +27,9 @@
         <param-value>true</param-value>    
     </context-param>
 
-    
     <context-param>
         <param-name>resteasy.servlet.mapping.prefix</param-name>
-        <param-value>/restful-services</param-value>
+        <param-value>/restful-request</param-value>
     </context-param>
     
 </web-app>

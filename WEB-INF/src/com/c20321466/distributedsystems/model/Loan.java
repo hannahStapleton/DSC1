@@ -32,6 +32,7 @@ public class Loan {
 		
 	}
 
+	@XmlElement
 	public String getLoanDescription() {
 		return loanDescription;
 	}
@@ -40,6 +41,7 @@ public class Loan {
 		this.loanDescription = loanDescription;
 	}
 
+	@XmlElement
 	public double getLoanAmount() {
 		return loanAmount;
 	}
@@ -48,10 +50,13 @@ public class Loan {
 		this.loanAmount = loanAmount;
 	}
 	
+	@XmlElement
 	public Deposit getDeposit() {
 		return deposit;
 	}
 	
-	public void setDeposit()
+	public void setDeposit(Deposit deposit){
+		this.deposit = deposit;
+	}
 }
 	

@@ -14,8 +14,9 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int userId;
+	private int id;
 	
+    private String userId;
 	private String userName;
 	private String userPhone;
 	private String userAddress;
@@ -25,6 +26,8 @@ public class User {
 	private Loan loan;
 	
 	public User(String userName, String userPhone, String userAddress, double userSalary, Loan loan) {
+
+		this.userId = Integer.toString(id);
 		this.userName = userName;
 		this.userPhone = userPhone;
 		this.userAddress = userAddress;
@@ -35,6 +38,11 @@ public class User {
 	
 	public User() {
 		
+	}
+
+	@XmlElement
+	public String getUserId() {
+		return userId;
 	}
 	
 	@XmlElement

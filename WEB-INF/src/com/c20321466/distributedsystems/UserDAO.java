@@ -11,10 +11,9 @@ import com.c20321466.distributedsystems.model.User;
 	public class UserDAO {
 		
 		protected static EntityManagerFactory emf = 
-		Persistence.createEntityManagerFactory("mydb");
+		Persistence.createEntityManagerFactory("moneylenders");
 
 		public UserDAO() {
-			// TODO Auto-generated constructor stub
 		}
 		 	
 
@@ -54,17 +53,15 @@ import com.c20321466.distributedsystems.model.User;
 			return users;
 		}
 
-		public User getUserByName(String userName) {
+		public User getUserById(String userId) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
-			User e = em.createQuery("SELECT p FROM User p WHERE p.userName = :userName", User.class)
-	                .setParameter("userName", userName)
+			User e = em.createQuery("SELECT p FROM User p WHERE p.userId = :userId", User.class)
+	                .setParameter("userId", userId)
 	                .getSingleResult();
 			em.getTransaction().commit();
 			em.close();
 			return e;
 		}
-		
-
 
 	}
