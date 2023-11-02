@@ -29,7 +29,7 @@
 
     <context-param>
         <param-name>resteasy.servlet.mapping.prefix</param-name>
-        <param-value>/restful-request</param-value>
+        <param-value>/rest-request</param-value>
     </context-param>
     
 </web-app>
