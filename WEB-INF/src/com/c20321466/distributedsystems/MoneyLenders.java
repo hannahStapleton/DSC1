@@ -64,6 +64,14 @@ public class MoneyLenders {
         LoanDAO loanDao = new LoanDAO();
         return loanDao.getAllLoans();
     }
+
+	@GET
+    @Path("/depositsjsonfromdb")
+    @Produces("application/json")
+    public List<Deposit> getJSONDepositsFromDB(){
+        DepositDAO depositDao = new DepositDAO();
+        return depositDao.getAllDeposits();
+    }
 	
 	@GET
     @Path("/jsonDB/loan/{loanId}")
@@ -78,21 +86,20 @@ public class MoneyLenders {
     @Consumes("application/json")
     public String addAccountToDBJSON(User user){
 		UserDAO userDao = new UserDAO();
-		userDao.persist(user);
-		return "User added to DB from JSON Param "+user.getUserId();	
-    }
-	
-	@POST
-	public void createLoan(User user) {
 		LoanDAO loanDao = new LoanDAO();
 		Loan loan = user.getLoan();
-		loanDao.persist(loan);
-	}
+        user.setLoan(loan);
+        userDao.persist(user);
+		loan.setUser(user);
+        loanDao.persist(loan);
+		return "User added to DB from JSON Param "+user.getUserId();		
+    }
+
 	
 	@POST
     @Path("/createDeposit/{loanId}")
     public String createDeposit(@PathParam("loanId") int loanId, Deposit deposit) {
-		String response = "";
+		String response = "oops";
 		LoanDAO loanDao = new LoanDAO();
 		DepositDAO depositDao = new DepositDAO();
 		Loan loan = loanDao.getLoanById(loanId);
@@ -101,7 +108,7 @@ public class MoneyLenders {
 			depositDao.persist(deposit);
             loan.addDeposit(deposit);
     		response = "Deposit added to Loan "+loanId;
-            updateLoan(loan.getLoanId(),loan);
+            loanDao.merge(loan);
 		}
 		return response;
 	}
@@ -119,7 +126,7 @@ public class MoneyLenders {
 			currentUser.setUserSalary(user.getUserSalary());
 			currentUser.setLoan(user.getLoan());
 		}
-		return dao.merge(user);	
+		return dao.merge(currentUser);	
     }
 	
 	@PUT

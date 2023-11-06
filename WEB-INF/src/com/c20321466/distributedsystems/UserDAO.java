@@ -47,7 +47,7 @@ import com.c20321466.distributedsystems.model.User;
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
 			List<User> users = new ArrayList<User>();
-			users = em.createQuery("from User").getResultList();
+			users = em.createQuery("from users").getResultList();
 			em.getTransaction().commit();
 			em.close();
 			return users;
@@ -56,7 +56,7 @@ import com.c20321466.distributedsystems.model.User;
 		public User getUserById(int userId) {
 			EntityManager em = emf.createEntityManager();
 			em.getTransaction().begin();
-			User e = em.createQuery("SELECT p FROM User p WHERE p.userId = :userId", User.class)
+			User e = em.createQuery("SELECT p FROM users p WHERE p.userId = :userId", User.class)
 	                .setParameter("userId", userId)
 	                .getSingleResult();
 			em.getTransaction().commit();

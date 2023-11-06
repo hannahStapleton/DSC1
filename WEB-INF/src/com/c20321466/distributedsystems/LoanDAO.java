@@ -48,7 +48,7 @@ public class LoanDAO {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<Loan> loansFromDB = new ArrayList<Loan>();
-		loansFromDB = em.createNamedQuery("Loan.findAll").getResultList();
+		loansFromDB = em.createQuery("from loans").getResultList();
 		em.getTransaction().commit();
 		em.close();
 		return loansFromDB;
@@ -56,16 +56,9 @@ public class LoanDAO {
 	
 	public Loan getLoanById(int loanId){
 		EntityManager em = emf.createEntityManager();
-		List<Loan> loans = (List<Loan>) 
-				em.createNamedQuery("Loan.findById").
-				setParameter("loanId", loanId).getResultList();
+		Loan loan = em.createQuery("SELECT p FROM loans p WHERE p.loanId = :loanId", Loan.class).setParameter("loanId", loanId).getSingleResult();
+		em.getTransaction().commit();
 		em.close();
-		//Do whatever you want with the loan(l) with that id
-		//Here we just return the first one
-		Loan loan = new Loan();
-		for(Loan l: loans) {
-			loan = l;
-		}
 		return loan;
 	}
 

@@ -47,25 +47,20 @@ public class DepositDAO {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		List<Deposit> depositsFromDB = new ArrayList<Deposit>();
-		depositsFromDB = em.createNamedQuery("Deposit.findAll").getResultList();
+		depositsFromDB = em.createQuery("from deposits").getResultList();
 		em.getTransaction().commit();
 		em.close();
 		return depositsFromDB;
 	}
 	
-	public Deposit getDepositById(String depositId){
+	public List<Deposit> getDepositById(int loanId){
 		EntityManager em = emf.createEntityManager();
-		List<Deposit> deposits = (List<Deposit>) 
-				em.createNamedQuery("Deposit.findById").
-				setParameter("depositId", depositId).getResultList();
+		List<Deposit> deposits = em.createNamedQuery("Deposit.findByLoanId")
+		.setParameter("loanId", loanId)
+		.getResultList();
+
 		em.close();
-		//Do whatever you want with the Deposit(l) with that id
-		//Here we just return the first one
-		Deposit deposit = new Deposit();
-		for(Deposit d: deposits) {
-			deposit = d;
-		}
-		return deposit;
+		return deposits;
 	}
 
 }

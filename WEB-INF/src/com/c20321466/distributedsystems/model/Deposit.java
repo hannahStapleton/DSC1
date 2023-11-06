@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "deposit")
+@XmlRootElement(name = "deposits")
 @Entity
 @Table(name = "deposits")
 public class Deposit {
@@ -19,6 +20,7 @@ public class Deposit {
 
 	private double depositAmount;
 	private String depositDate;
+	@JoinColumn(name = "loanId")
 	private int loanId;
 	
 	public Deposit(double depositAmount, String depositDate) {

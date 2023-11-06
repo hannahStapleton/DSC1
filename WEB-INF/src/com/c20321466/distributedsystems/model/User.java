@@ -25,7 +25,7 @@ public class User {
 	private String userAddress;
 	private double userSalary;
 	
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Loan loan;
 	
 	public User(String userName, String userPhone, String userAddress, double userSalary, Loan loan) {
